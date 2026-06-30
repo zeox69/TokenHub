@@ -16,6 +16,8 @@ import {
   createAssociatedTokenAccountInstruction,
   getAssociatedTokenAddress,
   createMintToCheckedInstruction,
+  createSetAuthorityInstruction,
+  AuthorityType,
   MINT_SIZE,
   TOKEN_PROGRAM_ID,
 } from "@solana/spl-token";
@@ -268,7 +270,27 @@ console.log("Fee in SOL:", feeAmount / LAMPORTS_PER_SOL);
   Number(decimals || 9)
 )
       );
+if (revokeMint) {
+  transaction.add(
+    createSetAuthorityInstruction(
+      mintKeypair.publicKey,
+      wallet.publicKey,
+      AuthorityType.MintTokens,
+      null
+    )
+  );
+}
 
+if (revokeFreeze) {
+  transaction.add(
+    createSetAuthorityInstruction(
+      mintKeypair.publicKey,
+      wallet.publicKey,
+      AuthorityType.FreezeAccount,
+      null
+    )
+  );
+}
       const latestBlockhash = await connection.getLatestBlockhash("confirmed");
 
       transaction.recentBlockhash = latestBlockhash.blockhash;
