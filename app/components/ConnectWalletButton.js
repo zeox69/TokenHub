@@ -1,21 +1,18 @@
 "use client";
-export default function ConnectWalletButton() {
-  async function connectWallet() {
-    if (!window.solana || !window.solana.isPhantom) {
-      alert("Please install Phantom Wallet first.");
-      return;
-    }
 
-    const response = await window.solana.connect();
-    alert("Connected: " + response.publicKey.toString());
-  }
+import { useEffect, useState } from "react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+
+export default function ConnectWalletButton() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
-    <button
-      onClick={connectWallet}
-      className="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-xl"
-    >
-      Connect Phantom Wallet
-    </button>
+    <WalletMultiButton className="!bg-purple-600 hover:!bg-purple-500 !rounded-xl !h-12 !px-6 !font-semibold" />
   );
 }

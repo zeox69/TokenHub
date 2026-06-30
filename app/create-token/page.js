@@ -15,6 +15,7 @@ export default function CreateTokenPage() {
   const [telegram, setTelegram] = useState("");
   const [discord, setDiscord] = useState("");
   const [image, setImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
 
   const [revokeMint, setRevokeMint] = useState(true);
   const [revokeFreeze, setRevokeFreeze] = useState(true);
@@ -22,7 +23,7 @@ export default function CreateTokenPage() {
 
   return (
     <main className="min-h-screen bg-[#020617] text-white px-8 py-12">
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full max-w-[1600px] mx-auto">
         <div className="mb-10">
           <h1 className="text-5xl font-bold">Create Solana Token</h1>
           <p className="text-gray-400 mt-3 text-lg">
@@ -30,8 +31,8 @@ export default function CreateTokenPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-          <div className="xl:col-span-2">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
+          <div className="xl:col-span-8">
             <TokenForm
               tokenName={tokenName}
               setTokenName={setTokenName}
@@ -59,24 +60,28 @@ export default function CreateTokenPage() {
               setRevokeFreeze={setRevokeFreeze}
               immutable={immutable}
               setImmutable={setImmutable}
+              imageFile={imageFile}
+setImageFile={setImageFile}
             />
           </div>
 
-          <TokenPreview
-            tokenName={tokenName}
-            symbol={symbol}
-            supply={supply}
-            decimals={decimals}
-            description={description}
-            website={website}
-            twitter={twitter}
-            telegram={telegram}
-            discord={discord}
-            image={image}
-            revokeMint={revokeMint}
-            revokeFreeze={revokeFreeze}
-            immutable={immutable}
-          />
+          <div className="xl:col-span-4">
+            <TokenPreview
+              tokenName={tokenName}
+              symbol={symbol}
+              supply={supply}
+              decimals={decimals}
+              description={description}
+              website={website}
+              twitter={twitter}
+              telegram={telegram}
+              discord={discord}
+              image={image}
+              revokeMint={revokeMint}
+              revokeFreeze={revokeFreeze}
+              immutable={immutable}
+            />
+          </div>
         </div>
       </div>
     </main>
