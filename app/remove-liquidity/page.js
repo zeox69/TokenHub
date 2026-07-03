@@ -1,18 +1,50 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { removeCpmmLiquidity } from "../services/raydium";
 
 export default function RemoveLiquidityPage() {
+  const wallet = useWallet();
+
   const [poolAddress, setPoolAddress] = useState("");
   const [percent, setPercent] = useState("50");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const canRemove = poolAddress && percent;
+  const canRemove = poolAddress && percent && !loading;
 
   const estimatedReturn = useMemo(() => {
     const p = Number(percent);
     if (!p) return "0";
     return `${p}% of your LP position`;
   }, [percent]);
+
+  async function handleRemoveLiquidity() {
+    try {
+      if (!wallet.connected) {
+        setMessage("Connect Phantom first.");
+        return;
+      }
+
+      if (!poolAddress) {
+        setMessage("Enter pool address first.");
+        return;
+      }
+
+      setLoading(true);
+      setMessage("Checking Raydium pool...");
+
+      await removeCpmmLiquidity(wallet, poolAddress, percent);
+
+      setMessage("Pool checked successfully.");
+    } catch (error) {
+      console.error(error);
+      setMessage(error.message || "Remove liquidity failed.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-[#020617] p-8 text-white overflow-hidden">
@@ -49,7 +81,7 @@ export default function RemoveLiquidityPage() {
                     value={poolAddress}
                     onChange={(e) => setPoolAddress(e.target.value)}
                     className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 outline-none hover:border-red-400/50 transition"
-                    placeholder="Enter pool address"
+                    placeholder="Enter devnet Raydium pool address"
                   />
                 </div>
 
@@ -86,7 +118,7 @@ export default function RemoveLiquidityPage() {
 
                   <div className="mt-3 flex justify-between">
                     <span className="text-gray-300">Platform Fee</span>
-                    <span>0.10 SOL</span>
+                    <span>0.01 SOL</span>
                   </div>
 
                   <div className="mt-5 flex justify-between border-t border-white/10 pt-5 text-xl font-bold">
@@ -96,6 +128,7 @@ export default function RemoveLiquidityPage() {
                 </div>
 
                 <button
+                  onClick={handleRemoveLiquidity}
                   disabled={!canRemove}
                   className={`w-full rounded-2xl py-5 text-lg font-bold transition ${
                     canRemove
@@ -103,8 +136,14 @@ export default function RemoveLiquidityPage() {
                       : "bg-gray-700 text-gray-400 cursor-not-allowed"
                   }`}
                 >
-                  Remove Liquidity
+                  {loading ? "Checking Pool..." : "Remove Liquidity"}
                 </button>
+
+                {message && (
+                  <div className="rounded-2xl border border-yellow-500/30 bg-yellow-500/10 p-5 text-yellow-300">
+                    {message}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -139,7 +178,7 @@ export default function RemoveLiquidityPage() {
                 </div>
 
                 <div className="rounded-2xl border border-yellow-500/20 bg-yellow-500/10 p-5 text-sm text-yellow-300">
-                  Real LP withdrawal will be connected after Raydium integration.
+                  Real LP withdrawal will be connected after Raydium pool check.
                 </div>
               </div>
             </div>

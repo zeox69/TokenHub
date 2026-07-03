@@ -16,9 +16,10 @@ export async function getWalletTokens(publicKey) {
     const info = item.account.data.parsed.info;
 
     return {
-  mint: info.mint,
-  amount: Number(info.tokenAmount.uiAmountString).toLocaleString(),
-  decimals: info.tokenAmount.decimals,
-};
+      mint: info.mint,
+      amount: Number(info.tokenAmount.uiAmountString || 0),
+      decimals: info.tokenAmount.decimals,
+      tokenAccount: item.pubkey.toString(),
+    };
   });
 }
