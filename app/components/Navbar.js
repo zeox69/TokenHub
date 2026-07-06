@@ -16,7 +16,7 @@ export default function Navbar() {
             </h1>
 
             <p className="text-xs text-gray-400">
-              Launch Solana Tokens
+              Launch Tokens
             </p>
           </div>
         </Link>

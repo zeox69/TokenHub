@@ -6,7 +6,7 @@ export default function Header() {
       <div>
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <p className="mt-1 text-gray-400">
-          Welcome to your Solana token platform.
+          Welcome to your token platform.
         </p>
       </div>
 

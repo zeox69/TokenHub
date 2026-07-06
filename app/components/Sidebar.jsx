@@ -18,14 +18,14 @@ export default function Sidebar() {
     <aside className="fixed left-0 top-0 z-50 flex h-screen w-64 flex-col border-r border-white/10 bg-[#0B1120] backdrop-blur-xl">
 
       <div className="border-b border-white/10 p-6">
-        <h1 className="text-3xl font-black">
-          Solana<span className="text-purple-400">Tools</span>
-        </h1>
+  <h1 className="text-2xl font-black leading-none text-purple-400">
+  Yzarvo
+</h1>
 
-        <p className="mt-2 text-sm text-gray-400">
-          Professional Token Platform
-        </p>
-      </div>
+<p className="mt-1 text-2xl font-black text-purple-400">
+  TokenHub
+</p>
+</div>
 
       <nav className="flex-1 space-y-2 p-5">
         {menu.map((item) => (
@@ -44,19 +44,7 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      <div className="m-5 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 p-5">
-        <p className="text-xs uppercase tracking-widest text-purple-100">
-          Platform Fee
-        </p>
-
-        <h2 className="mt-2 text-3xl font-black">
-          0.25 SOL
-        </h2>
-
-        <p className="mt-2 text-sm text-purple-100">
-          One simple fee for creating a new token.
-        </p>
-      </div>
+      
     </aside>
   );
 }

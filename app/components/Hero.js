@@ -5,12 +5,12 @@ export default function Hero() {
     <section className="py-24 px-6 text-center">
       <div className="max-w-5xl mx-auto">
         <span className="inline-block px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 font-semibold mb-6">
-          Solana Token Launcher
+          Token Launcher
         </span>
 
         <h1 className="text-6xl md:text-7xl font-extrabold text-white leading-tight">
           Launch Your
-          <span className="text-green-400"> Solana Token </span>
+          <span className="text-green-400"> Token </span>
           in Minutes
         </h1>
 

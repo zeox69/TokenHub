@@ -4,7 +4,7 @@ export default function Features() {
       <div className="bg-gray-800 p-6 rounded-xl">
         <h3 className="text-xl font-bold">Fast Token Creation</h3>
         <p className="mt-3 text-gray-400">
-          Create your Solana token quickly with a simple form.
+          Create your token quickly with a simple form.
         </p>
       </div>
 

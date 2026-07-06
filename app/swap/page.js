@@ -11,22 +11,18 @@ const TOKENS = [
     mint: "So11111111111111111111111111111111111111112",
     decimals: 9,
   },
-
   {
     symbol: "USDC",
     name: "USD Coin",
     mint: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
     decimals: 6,
   },
-
-
   {
     symbol: "JUP",
     name: "Jupiter",
     mint: "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
     decimals: 6,
   },
-
   {
     symbol: "BONK",
     name: "Bonk",
@@ -34,13 +30,15 @@ const TOKENS = [
     decimals: 5,
   },
 ];
+
 export default function SwapPage() {
   const wallet = useWallet();
 
-const connection = new Connection(
-  "https://solana-rpc.publicnode.com",
-  "confirmed"
-);
+  const connection = new Connection(
+    "https://solana-rpc.publicnode.com",
+    "confirmed"
+  );
+
   const [fromToken, setFromToken] = useState("SOL");
   const [toToken, setToToken] = useState("USDC");
   const [amount, setAmount] = useState("");
@@ -113,71 +111,71 @@ const connection = new Connection(
   }, [amount, fromToken, toToken, slippage]);
 
   async function handleSwap() {
-  try {
-    if (!wallet.connected || !wallet.publicKey) {
-      setMessage("Connect Phantom first.");
-      return;
-    }
-
-    if (!quote) {
-      setMessage("No quote found. Enter an amount first.");
-      return;
-    }
-
-    setMessage("Preparing swap transaction...");
-
-    const response = await fetch("https://lite-api.jup.ag/swap/v1/swap", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        quoteResponse: quote,
-        userPublicKey: wallet.publicKey.toString(),
-        wrapAndUnwrapSol: true,
-        dynamicComputeUnitLimit: true,
-        prioritizationFeeLamports: {
-          priorityLevelWithMaxLamports: {
-            priorityLevel: "high",
-            maxLamports: 1000000,
-          },
-        },
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok || data.error) {
-      console.error("Jupiter swap error:", data);
-      setMessage(data.error || "Could not create swap transaction.");
-      return;
-    }
-
-    const swapTransactionBuf = Buffer.from(data.swapTransaction, "base64");
-    const transaction = VersionedTransaction.deserialize(swapTransactionBuf);
-
-    setMessage("Confirm the swap in Phantom...");
-
-    const signedTransaction = await wallet.signTransaction(transaction);
-
-    const txid = await connection.sendRawTransaction(
-      signedTransaction.serialize(),
-      {
-        skipPreflight: false,
-        maxRetries: 3,
+    try {
+      if (!wallet.connected || !wallet.publicKey) {
+        setMessage("Connect Phantom first.");
+        return;
       }
-    );
 
-    setMessage("Swap sent. Confirming transaction...");
+      if (!quote) {
+        setMessage("Enter an amount first to get a quote.");
+        return;
+      }
 
-    await connection.confirmTransaction(txid, "confirmed");
+      setMessage("Preparing swap transaction...");
 
-    setMessage(`Swap successful: ${txid}`);
-  } catch (error) {
-    console.error(error);
-    setMessage(error.message || "Swap failed.");
+      const response = await fetch("https://lite-api.jup.ag/swap/v1/swap", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          quoteResponse: quote,
+          userPublicKey: wallet.publicKey.toString(),
+          wrapAndUnwrapSol: true,
+          dynamicComputeUnitLimit: true,
+          prioritizationFeeLamports: {
+            priorityLevelWithMaxLamports: {
+              priorityLevel: "medium",
+              maxLamports: 100000,
+            },
+          },
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || data.error) {
+        console.error("Jupiter swap error:", data);
+        setMessage(data.error || "Could not create swap transaction.");
+        return;
+      }
+
+      const swapTransactionBuf = Buffer.from(data.swapTransaction, "base64");
+      const transaction = VersionedTransaction.deserialize(swapTransactionBuf);
+
+      setMessage("Confirm the swap in Phantom...");
+
+      const signedTransaction = await wallet.signTransaction(transaction);
+
+      const txid = await connection.sendRawTransaction(
+        signedTransaction.serialize(),
+        {
+          skipPreflight: false,
+          maxRetries: 3,
+        }
+      );
+
+      setMessage("Swap sent. Confirming transaction...");
+
+      await connection.confirmTransaction(txid, "confirmed");
+
+      setMessage(`Swap successful: ${txid}`);
+    } catch (error) {
+      console.error(error);
+      setMessage(error.message || "Swap failed.");
+    }
   }
-}
 
   return (
     <div className="min-h-screen bg-[#020617] text-white p-8 overflow-hidden">
@@ -195,7 +193,7 @@ const connection = new Connection(
           <h1 className="mt-5 text-5xl font-black">Swap Tokens</h1>
 
           <p className="mt-3 text-lg text-gray-400">
-            Swap SOL, BTC, ETH, USDC, and USDT with live Jupiter quotes.
+            Swap SOL, USDC, JUP, and BONK with live Jupiter quotes.
           </p>
         </div>
 
@@ -337,8 +335,7 @@ const connection = new Connection(
                 </div>
 
                 <div className="rounded-2xl border border-green-500/20 bg-green-500/10 p-5 text-green-300 text-sm">
-                  Live Jupiter quotes are connected. Real swap execution is the
-                  next development step.
+                  Live Jupiter quotes and real swap execution are connected.
                 </div>
               </div>
             </div>

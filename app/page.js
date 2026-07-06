@@ -26,7 +26,7 @@ const actions = [
     title: "Swap Tokens",
     href: "/swap",
     icon: "🔄",
-    text: "Swap Solana tokens easily.",
+    text: "Swap tokens easily.",
   },
   {
     title: "Remove Liquidity",
@@ -69,11 +69,11 @@ export default function Home() {
           <div className="relative z-10 grid grid-cols-1 xl:grid-cols-12 gap-10 items-center">
             <div className="xl:col-span-7">
               <p className="inline-flex rounded-full border border-purple-400/30 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-300">
-                Professional Solana Token Platform
+                Professional Token Platform
               </p>
 
               <h1 className="mt-7 text-5xl xl:text-7xl font-black leading-tight tracking-tight">
-                Launch your Solana token from one powerful dashboard.
+                Launch your token from one powerful dashboard.
               </h1>
 
               <p className="mt-6 max-w-3xl text-lg xl:text-xl text-gray-400 leading-8">
@@ -103,7 +103,7 @@ export default function Home() {
                 <div className="mb-5 flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-400">Launch Preview</p>
-                    <h3 className="text-2xl font-bold">SolanaTools</h3>
+                    <h3 className="text-2xl font-bold">Yzarvo TokenHub</h3>
                   </div>
                   <div className="h-14 w-14 rounded-2xl bg-green-500/10 border border-green-400/20 flex items-center justify-center text-2xl">
                     🚀
@@ -113,7 +113,7 @@ export default function Home() {
                 <div className="space-y-4">
                   <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
                     <p className="text-gray-400 text-sm">Token Name</p>
-                    <p className="text-xl font-bold mt-1">My Solana Token</p>
+                    <p className="text-xl font-bold mt-1">My Token</p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
@@ -187,7 +187,7 @@ export default function Home() {
 
         <section className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-3">
           <div className="xl:col-span-2 rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-8">
-            <h2 className="text-3xl font-bold">Why Choose SolanaTools?</h2>
+            <h2 className="text-3xl font-bold">Why Choose Yzarvo TokenHub?</h2>
             <p className="mt-3 text-gray-400">
               Built for creators who want a simple and fast token launch
               experience.
@@ -264,7 +264,7 @@ export default function Home() {
         </section>
 
         <footer className="mt-8 border-t border-white/10 py-6 text-sm text-gray-500">
-          © 2026 SolanaTools. Built for Solana creators.
+          © 2026 Yzarvo Tokenhub. Built for Solana creators.
         </footer>
       </div>
     </div>

@@ -25,7 +25,7 @@ export default function CreateTokenPage() {
     <main className="min-h-screen bg-[#020617] text-white px-8 py-12">
       <div className="w-full max-w-[1600px] mx-auto">
         <div className="mb-10">
-          <h1 className="text-5xl font-bold">Create Solana Token</h1>
+          <h1 className="text-5xl font-bold">Create Token</h1>
           <p className="text-gray-400 mt-3 text-lg">
             Launch your own SPL token in just a few clicks.
           </p>

@@ -115,13 +115,18 @@ export default function TokenForm({
 }) {
   const wallet = useWallet();
   const [successData, setSuccessData] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const canLaunch = tokenName && symbol && supply;
 
   const launchToken = async () => {
+    if (submitting) return;
+    setSubmitting(true);
+
     try {
       if (!wallet.publicKey) {
         alert("Please connect your wallet first.");
+        setSubmitting(false);
         return;
       }
 
@@ -173,13 +178,6 @@ export default function TokenForm({
         throw new Error("Metadata upload failed.");
       }
 
-      const metadataUrl =
-        uploadedMetadata.gateway ||
-        uploadedMetadata.gatewayUrl ||
-        uploadedMetadata.url ||
-        uploadedMetadata.cid ||
-        "";
-
       const connection = new Connection(
         "https://api.devnet.solana.com",
         "confirmed"
@@ -190,7 +188,6 @@ export default function TokenForm({
       );
 
       const feeAmount = 0.25 * LAMPORTS_PER_SOL;
-
       const mintKeypair = Keypair.generate();
 
       const lamports = await connection.getMinimumBalanceForRentExemption(
@@ -282,12 +279,6 @@ export default function TokenForm({
       const signedTx = await wallet.signTransaction(transaction);
       const txid = await connection.sendRawTransaction(signedTx.serialize());
 
-      console.log("TXID:", txid);
-      console.log(
-        "Explorer:",
-        `https://explorer.solana.com/tx/${txid}?cluster=devnet`
-      );
-
       await connection.confirmTransaction(
         {
           signature: txid,
@@ -301,9 +292,12 @@ export default function TokenForm({
         mint: mintKeypair.publicKey.toString(),
         tx: txid,
       });
+
+      setSubmitting(false);
     } catch (error) {
       console.error(error);
       alert(error.message || "Error creating token. Open browser console.");
+      setSubmitting(false);
     }
   };
 
@@ -323,7 +317,7 @@ export default function TokenForm({
                 </h2>
 
                 <p className="text-gray-400 mt-1">
-                  Launch your Solana token in minutes
+                  Launch your token in minutes
                 </p>
               </div>
             </div>
@@ -472,16 +466,16 @@ export default function TokenForm({
             <ConnectWalletButton />
 
             <button
-              disabled={!canLaunch}
+              disabled={!canLaunch || submitting}
               onClick={launchToken}
               className={`w-full flex items-center justify-center gap-2 font-bold py-5 rounded-2xl transition text-lg ${
-                canLaunch
+                canLaunch && !submitting
                   ? "bg-green-500 hover:bg-green-400 text-black shadow-lg shadow-green-500/20"
                   : "bg-gray-700 text-gray-400 cursor-not-allowed"
               }`}
             >
               <Rocket size={22} />
-              Launch Token
+              {submitting ? "Creating Token..." : "Launch Token"}
             </button>
           </div>
         </div>
