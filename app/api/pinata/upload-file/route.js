@@ -12,16 +12,12 @@ export async function POST(req) {
 
     const data = await response.json();
 
-    if (!response.ok) {
-      return Response.json(data, { status: response.status });
-    }
+    console.log("Pinata status:", response.status);
+    console.log("Pinata response:", data);
 
-    return Response.json({
-      cid: data.IpfsHash,
-      url: `ipfs://${data.IpfsHash}`,
-      gateway: `https://gateway.pinata.cloud/ipfs/${data.IpfsHash}`,
-    });
+    return Response.json(data, { status: response.status });
   } catch (error) {
+    console.error(error);
     return Response.json({ error: error.message }, { status: 500 });
   }
 }
