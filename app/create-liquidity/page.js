@@ -186,12 +186,12 @@ function copyText(text, label) {
 
                     <div className="mt-3 flex justify-between">
                       <span className="text-gray-300">Platform Fee</span>
-                      <span>0.25 SOL</span>
+                      <span>0.01 SOL</span>
                     </div>
 
                     <div className="mt-5 flex justify-between border-t border-white/10 pt-5 text-xl font-bold">
                       <span>Total</span>
-                      <span className="text-green-400">0.252 SOL</span>
+                      <span className="text-green-400">0.012 SOL</span>
                     </div>
                   </div>
 
