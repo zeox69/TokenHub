@@ -9,13 +9,13 @@ export default function Header() {
           Welcome to your token platform.
         </p>
       </div>
-
-      <div className="flex items-center gap-4">
-        <div className="rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-2">
-          <span className="text-sm text-green-300">
-            ● Solana Network Online
-          </span>
-        </div>
+<div className="hidden lg:flex items-center gap-4">
+  <div className="rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-2">
+    <span className="text-sm text-green-300">
+      ● Solana Network Online
+    </span>
+  </div>
+</div>
 
         <ConnectWalletButton />
       </div>
