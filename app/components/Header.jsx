@@ -1,22 +1,17 @@
 "use client";
+
 import ConnectWalletButton from "./ConnectWalletButton";
+
 export default function Header() {
   return (
-    <header className="mb-8 flex items-center justify-between rounded-2xl border border-white/10 bg-[#111827] p-6">
+    <header className="sticky top-0 z-40 flex items-center justify-between border-b border-white/10 bg-[#080b16]/80 px-6 py-4 backdrop-blur-xl">
       <div>
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-        <p className="mt-1 text-gray-400">
-          Welcome to your token platform.
-        </p>
+        <h1 className="text-xl font-bold text-white">
+          Yzarvo <span className="text-purple-400">TokenHub</span>
+        </h1>
       </div>
-<div className="hidden lg:flex items-center gap-4">
-  <div className="rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-2">
-    <span className="text-sm text-green-300">
-      ● Solana Network Online
-    </span>
-  </div>
-</div>
 
+      <div className="flex items-center gap-4">
         <ConnectWalletButton />
       </div>
     </header>
