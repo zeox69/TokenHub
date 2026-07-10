@@ -134,7 +134,7 @@ export default function Home() {
 
                   <div className="rounded-2xl border border-green-500/20 bg-green-500/10 p-5">
                     <p className="text-green-400 font-semibold">
-                      Ready to launch on Solana Devnet
+                      Ready to launch on Solana Mainnet
                     </p>
                   </div>
                 </div>
