@@ -81,7 +81,7 @@ export default function RemoveLiquidityPage() {
                     value={poolAddress}
                     onChange={(e) => setPoolAddress(e.target.value)}
                     className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 outline-none hover:border-red-400/50 transition"
-                    placeholder="Enter devnet Raydium pool address"
+                    placeholder="Enter Mainnet Raydium pool address"
                   />
                 </div>
 
